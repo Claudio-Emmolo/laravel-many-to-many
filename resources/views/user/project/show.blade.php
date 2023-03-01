@@ -23,6 +23,13 @@
                 @endif
             </div>
             <div class="col-6 pt-3">
+                {{-- Technologie Tag --}}
+                @foreach ($project->technologies as $technology)
+                    <span class="badge mb-2" style="background-color: {{ $technology->color_tag }}">
+                        {{ $technology->name }}
+                    </span>
+                @endforeach
+
                 <h2>
                     Titolo: {{ $project->title }}
                 </h2>
@@ -44,10 +51,6 @@
                     @else
                         <span>Nessuna tecnologia inserita </span> <br>
                     @endif
-                <p>
-                    Tecnologie usate: <br>
-                    {{ $project->tecnologies }}<br>
-                </p>
                 </p>
             </div>
         </div>
