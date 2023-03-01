@@ -95,6 +95,7 @@ class ProjectController extends Controller
         }
 
         $newProject->save();
+
         if (isset($data['tecnologies'])) {
             $newProject->technologies()->sync($data['tecnologies']);
         }
@@ -154,8 +155,11 @@ class ProjectController extends Controller
         $editData['preview_img'] = Storage::put('uploads', $editData['preview_img']);
 
         $project->update($editData);
+
         if (isset($data['tecnologies'])) {
             $project->technologies()->sync($editData['tecnologies']);
+        } else {
+            $project->technologies()->sync([]);
         }
 
 
