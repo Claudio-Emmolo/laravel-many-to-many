@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->text('preview_img')->nullable();
             $table->tinyInteger('difficulty');
-            $table->string('tecnologies', 255);
+            // $table->string('tecnologies', 255);
             $table->timestamps();
         });
     }

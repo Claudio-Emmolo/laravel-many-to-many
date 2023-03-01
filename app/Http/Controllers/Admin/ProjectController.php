@@ -21,7 +21,7 @@ class ProjectController extends Controller
         "date" => "required|date",
         "preview_img" => "nullable|image",
         "difficulty" => "required|numeric|between:1,5",
-        "tecnologies" => "array|exist:technologies,id",
+        "tecnologies" => "array|exists:technologies,id",
     ];
 
     public $errorMessage = [
@@ -50,9 +50,9 @@ class ProjectController extends Controller
 
 
 
-        "tecnologies.required" => 'Inserire la lista di tecnologie usate',
-        "tecnologies.string" => 'Il campo deve contenere una stringa',
-        "tecnologies.string.max" => 'Limite di carettiri superato (255)',
+        // "tecnologies.required" => 'Inserire la lista di tecnologie usate',
+        // "tecnologies.string" => 'Il campo deve contenere una stringa',
+        // "tecnologies.string.max" => 'Limite di carettiri superato (255)',
 
     ];
 
@@ -87,8 +87,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = $request->validate($this->validator, $this->errorMessage);
-        // dd($data);
         $newProject = new Project();
         $newProject->fill($data);
 
