@@ -21,7 +21,7 @@ class ProjectController extends Controller
         "date" => "required|date",
         "preview_img" => "nullable|image",
         "difficulty" => "required|numeric|between:1,5",
-        "tecnologies" => "array|exists:technologies,id",
+        "tecnologies" => "required|array|exists:technologies,id",
     ];
 
     public $errorMessage = [
@@ -50,10 +50,7 @@ class ProjectController extends Controller
 
 
 
-        // "tecnologies.required" => 'Inserire la lista di tecnologie usate',
-        // "tecnologies.string" => 'Il campo deve contenere una stringa',
-        // "tecnologies.string.max" => 'Limite di carettiri superato (255)',
-
+        "tecnologies.required" => 'Inserire almeno una tecnologia usata per il progetto',
     ];
 
     /**

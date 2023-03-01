@@ -29,15 +29,22 @@
         </select>
     </div>
 
-    <div class="mb-3 d-flex">
-        @foreach ($technologyList as $technology)
-            <div class="form-check d-flex mx-2">
-                <input type="checkbox" class="form-check-input" id="project_technology" name="tecnologies[]"
-                    value="{{ $technology->id }}"
-                    @if ($errors->any()) @checked( in_array($technology->id, old('tecnologies', [])) ) > @else @checked( $project->technologies->contains($technology->id) )> @endif
-                    <label for="project_technology" class="form-check-label ms-2"> {{ $technology->name }} </label>
-            </div>
-        @endforeach
+    <div class="mb-3">
+        <div class="section-checked d-flex">
+            @foreach ($technologyList as $technology)
+                <div class="form-check d-flex mx-2">
+                    <input type="checkbox" class="form-check-input" id="project_technology" name="tecnologies[]"
+                        value="{{ $technology->id }}"
+                        @if ($errors->any()) @checked( in_array($technology->id, old('tecnologies', [])) ) > @else @checked( $project->technologies->contains($technology->id) )> @endif
+                        <label for="project_technology" class="form-check-label ms-2"> {{ $technology->name }} </label>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-danger">
+            @error('tecnologies')
+                {{ $message }}
+            @enderror
+        </div>
     </div>
 
     <div class="mb-3">
