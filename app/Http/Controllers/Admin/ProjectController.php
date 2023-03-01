@@ -21,7 +21,7 @@ class ProjectController extends Controller
         "date" => "required|date",
         "preview_img" => "nullable|image",
         "difficulty" => "required|numeric|between:1,5",
-        "tecnologies" => "required|array|exists:technologies,id",
+        "tecnologies" => "array|exists:technologies,id",
     ];
 
     public $errorMessage = [
@@ -95,7 +95,9 @@ class ProjectController extends Controller
         }
 
         $newProject->save();
-        $newProject->technologies()->sync($data['tecnologies']);
+        if (isset($data['tecnologies'])) {
+            $newProject->technologies()->sync($data['tecnologies']);
+        }
 
 
         return redirect()->route('admin.projects.index', compact('newProject'));
@@ -152,7 +154,9 @@ class ProjectController extends Controller
         $editData['preview_img'] = Storage::put('uploads', $editData['preview_img']);
 
         $project->update($editData);
-        $project->technologies()->sync($editData['tecnologies']);
+        if (isset($data['tecnologies'])) {
+            $project->technologies()->sync($editData['tecnologies']);
+        }
 
 
         return redirect()->route('admin.projects.index', compact('project'))->with('message', 'Project has been modified')->with('type', 'success');
