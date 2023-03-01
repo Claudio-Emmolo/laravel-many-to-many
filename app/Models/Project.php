@@ -19,6 +19,11 @@ class Project extends Model
         return $this->belongsTo(Type::class);
     }
 
+    // Function for connect Projects table to many Technologies
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class);
+    }
 
     public function isImageUrl()
     {

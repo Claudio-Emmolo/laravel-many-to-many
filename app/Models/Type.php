@@ -11,7 +11,6 @@ class Type extends Model
 
     protected $fillable = array('name');
 
-
     // Function for connect (1-N) Projects table
     public function projects()
     {
