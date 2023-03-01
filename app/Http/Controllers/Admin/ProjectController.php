@@ -122,7 +122,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $typeList = Type::all();
-        return view('admin.project.edit', compact('project', 'typeList'));
+        $technologyList = Technology::all();
+        return view('admin.project.edit', compact('project', 'typeList', 'technologyList'));
     }
 
     /**
@@ -151,6 +152,8 @@ class ProjectController extends Controller
         $editData['preview_img'] = Storage::put('uploads', $editData['preview_img']);
 
         $project->update($editData);
+        $project->technologies()->sync($editData['tecnologies']);
+
 
         return redirect()->route('admin.projects.index', compact('project'))->with('message', 'Project has been modified')->with('type', 'success');
     }
