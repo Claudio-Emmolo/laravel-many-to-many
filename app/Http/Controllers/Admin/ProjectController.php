@@ -90,7 +90,9 @@ class ProjectController extends Controller
         $newProject->fill($data);
 
         //Upload IMG
-        $newProject->preview_img = Storage::put('uploads', $data['preview_img']);
+        if (isset($data['preview_img'])) {
+            $newProject->preview_img = Storage::put('uploads', $data['preview_img']);
+        }
 
         $newProject->save();
         $newProject->technologies()->sync($data['tecnologies']);
@@ -136,6 +138,7 @@ class ProjectController extends Controller
         $rules['title'] = ['required', 'string', 'min:1', 'max:100', Rule::unique('projects')->ignore($project->id)];
 
         $editData = $request->validate($rules, $this->errorMessage);
+
 
         //remove exist img
         if ($request->hasFile('preview_img')) {
@@ -198,7 +201,7 @@ class ProjectController extends Controller
     public function forceDelete(Project $project)
     {
         //Check if IMG or URL
-        if ($project->isImageUrl()) {
+        if (!$project->isImageUrl()) {
             // Delete Img
             Storage::delete($project->preview_img);
         }
