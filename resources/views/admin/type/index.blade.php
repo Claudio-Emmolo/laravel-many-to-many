@@ -39,6 +39,13 @@
                     <td class="text-end">
                         <a href="{{ route('admin.types.edit', $type->id) }}" class="btn btn-success"><i
                                 class="fa-solid fa-pen-to-square"></i></a>
+
+                        <form action="{{ route('admin.types.destroy', $type) }}" method="POST" class="form-delete d-inline"
+                            tag="{{ $type->title }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                        </form>
                     </td>
                 @empty
                     <td>
