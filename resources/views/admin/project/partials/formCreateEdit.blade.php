@@ -29,6 +29,16 @@
         </select>
     </div>
 
+    <div class="mb-3 d-flex">
+        @foreach ($technologyList as $technology)
+            <div class="form-check d-flex mx-2">
+                <input type="checkbox" class="form-check-input" id="project_technology" name="tecnologies[]"
+                    value="{{ $technology->id }}">
+                <label for="project_technology" class="form-check-label ms-2"> {{ $technology->name }} </label>
+            </div>
+        @endforeach
+    </div>
+
     <div class="mb-3">
         <label for="title" class="form-label">Project URL*</label>
         <input type="text" class="form-control @error('url') is-invalid @enderror" id="title" name="url"
@@ -73,7 +83,7 @@
         </div>
     </div>
 
-    <div class="mb-3">
+    {{-- <div class="mb-3">
         <label for="tecnologies" class="form-label">Tecnologies*</label>
         <input type="text" class="form-control @error('tecnologies') is-invalid @enderror" id="tecnologies"
             name="tecnologies" value="{{ old('tecnologies', $project->tecnologies) }}">
@@ -82,7 +92,7 @@
                 {{ $message }}
             @enderror
         </div>
-    </div>
+    </div> --}}
 
     <button type="submit" class="btn btn-primary">Send</button>
 </form>

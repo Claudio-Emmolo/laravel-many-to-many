@@ -24,7 +24,7 @@
             </div>
             <div class="col-6 pt-3">
 
-                {{-- Technologie Tag --}}
+                {{-- Technologies Tag --}}
                 @foreach ($project->technologies as $technology)
                     <span class="badge mb-2" style="background-color: {{ $technology->color_tag }}">
                         {{ $technology->name }}

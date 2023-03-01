@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Dotenv\Validator;
 use Illuminate\Validation\Rule;
@@ -20,7 +21,7 @@ class ProjectController extends Controller
         "date" => "required|date",
         "preview_img" => "nullable|image",
         "difficulty" => "required|numeric|between:1,5",
-        "tecnologies" => "required|string|max:255",
+        "tecnologies" => "array|exist:technologies,id",
     ];
 
     public $errorMessage = [
@@ -75,7 +76,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.project.create', ["project" => new Project(), "typeList" => Type::all()]);
+        return view('admin.project.create', ["project" => new Project(), "typeList" => Type::all(), "technologyList" => Technology::all()]);
     }
 
     /**
@@ -87,7 +88,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate($this->validator, $this->errorMessage);
-
+        // dd($data);
         $newProject = new Project();
         $newProject->fill($data);
 
@@ -95,6 +96,8 @@ class ProjectController extends Controller
         $newProject->preview_img = Storage::put('uploads', $data['preview_img']);
 
         $newProject->save();
+        $newProject->technologies()->sync($data['tecnologies']);
+
 
         return redirect()->route('admin.projects.index', compact('newProject'));
     }
